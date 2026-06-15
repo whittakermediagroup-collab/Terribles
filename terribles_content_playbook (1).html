@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terrible's 30-Day Content Playbook</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #C0392B;
+    --red-dark: #962d22;
+    --red-light: #fdf0ee;
+    --ink: #1a1a1a;
+    --mid: #5a5a5a;
+    --muted: #8a8a8a;
+    --border: #e2e2e2;
+    --bg: #f6f5f2;
+    --surface: #ffffff;
+    --green: #27AE60;
+    --orange: #E67E22;
+    --purple: #8E44AD;
+    --blue: #2980B9;
+    --teal: #16A085;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--red);
+    padding: 2.5rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: 'TERRIBLE'S';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 120px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.06);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -2px;
+  }
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 8px;
+  }
+  .header-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+  .header-meta {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* LAYOUT */
+  .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  /* TABS */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 2rem;
+    width: fit-content;
+  }
+  .tab-btn {
+    padding: 8px 20px;
+    border-radius: 7px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    color: var(--mid);
+    transition: all 0.15s;
+  }
+  .tab-btn.active {
+    background: var(--red);
+    color: #fff;
+  }
+  .tab-btn:hover:not(.active) { background: var(--bg); color: var(--ink); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  /* BUCKET GRID */
+  .bucket-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 2.5rem;
+  }
+  .bucket-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .bucket-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .bucket-pct {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .bucket-bar-wrap {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+  .bucket-bar {
+    height: 3px;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .bucket-note {
+    font-size: 11.5px;
+    color: var(--mid);
+    line-height: 1.55;
+  }
+
+  /* VERDICT GRID */
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+  .verdict-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 16px 16px 20px;
+  }
+  .verdict-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .verdict-text {
+    font-size: 12.5px;
+    color: var(--mid);
+    line-height: 1.65;
+  }
+  .verdict-text li { margin-left: 1rem; margin-bottom: 2px; }
+
+  /* FILTER ROW */
+  .filter-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .chip {
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    background: var(--surface);
+    color: var(--mid);
+    transition: all 0.12s;
+  }
+  .chip.on {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+    font-weight: 500;
+  }
+  .chip:hover:not(.on) { border-color: var(--ink); color: var(--ink); }
+
+  /* CONCEPT LIST */
+  .concept-list { display: flex; flex-direction: column; gap: 8px; }
+  .concept-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .concept-card:hover { border-color: #aaa; }
+  .concept-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .concept-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--border);
+    min-width: 28px;
+    flex-shrink: 0;
+  }
+  .concept-title {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink);
+    flex: 1;
+    line-height: 1.4;
+  }
+  .pill-row { display: flex; gap: 6px; flex-shrink: 0; }
+  .pill {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+  .pill-plat { background: #dbeafe; color: #1e40af; }
+  .pill-bucket { background: #d1fae5; color: #065f46; }
+  .chevron {
+    font-size: 16px;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .concept-card.open .chevron { transform: rotate(180deg); }
+
+  .concept-detail {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 14px 18px 16px;
+    background: #fafafa;
+  }
+  .concept-card.open .concept-detail { display: block; }
+  .detail-table { width: 100%; border-collapse: collapse; }
+  .detail-table tr td { padding: 5px 0; vertical-align: top; }
+  .detail-table td:first-child {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    min-width: 80px;
+    padding-right: 12px;
+  }
+  .detail-table td:last-child { font-size: 13px; color: var(--ink); }
+  .cta-badge {
+    display: inline-block;
+    background: var(--red-light);
+    color: var(--red-dark);
+    border: 1px solid #f5c5bf;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-style: italic;
+  }
+  .hook-text { color: var(--mid); font-style: italic; font-size: 12.5px; }
+
+  /* FOOTER */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--surface);
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 600px) {
+    .header-title { font-size: 36px; }
+    .verdict-grid { grid-template-columns: 1fr; }
+    .bucket-grid { grid-template-columns: repeat(2, 1fr); }
+    .pill-row { display: none; }
+    .site-header::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Whittaker Media Group — Internal Strategy</div>
+  <div class="header-title">30-Day Content Playbook</div>
+  <div class="header-meta">Terrible's Herbst &nbsp;·&nbsp; Content Buckets + 20 Post Concepts &nbsp;·&nbsp; Q3 2026</div>
+</header>
+
+<main class="container">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('buckets')">Content buckets</button>
+    <button class="tab-btn" onclick="switchTab('concepts')">31 post concepts</button>
+    <button class="tab-btn" onclick="switchTab('trends')">Trend research</button>
+  </div>
+
+  <!-- BUCKETS PANEL -->
+  <div class="panel active" id="panel-buckets">
+    <div class="section-label">Recommended mix — 30 days</div>
+    <div class="bucket-grid" id="bucket-grid"></div>
+
+    <div class="section-label">Audit answers</div>
+    <div class="verdict-grid">
+      <div class="verdict-card" style="border-left: 4px solid var(--red);">
+        <div class="verdict-label" style="color:var(--red);">Too promotional?</div>
+        <div class="verdict-text">Yes. The 2025 audit shows a promo-heavy feed with near-zero engagement on static deal posts. Facebook averages 1.22% ER on 44K followers. Deals aren't the problem — they're the <em>only</em> thing being posted.</div>
+      </div>
+      <div class="verdict-card" style="border-left: 4px solid var(--green);">
+        <div class="verdict-label" style="color:var(--green);">Do more of</div>
+        <div class="verdict-text">
+          <ul>
+            <li>Humor &amp; trends</li>
+            <li>Employee spotlights</li>
+            <li>Behind-the-scenes</li>
+            <li>T+ loyalty reveals</li>
+            <li>Car wash content</li>
+            <li>Reels over static</li>
+          </ul>
+        </div>
+      </div>
+      <div class="verdict-card" style="border-left: 4px solid var(--orange);">
+        <div class="verdict-label" style="color:var(--orange);">Do less of</div>
+        <div class="verdict-text">
+          <ul>
+            <li>Standalone deal graphics</li>
+            <li>Low-effort giveaway posts (flyer only, no hype)</li>
+            <li>Repurposed flyer art</li>
+            <li>Facebook-first thinking</li>
+            <li>Posts without a CTA</li>
+            <li>Motorsports crossovers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPTS PANEL -->
+  <div class="panel" id="panel-concepts">
+    <div class="section-label">Filter by platform</div>
+    <div class="filter-row" id="filter-row"></div>
+    <div class="section-label" style="margin-top:0.25rem">Click any card to expand</div>
+    <div class="concept-list" id="concept-list"></div>
+  </div>
+
+  <!-- TRENDS PANEL -->
+  <div class="panel" id="panel-trends">
+    <div class="section-label">June 2026 — 15 trends identified, 5 recommended for immediate testing</div>
+    <div style="margin-bottom:1.5rem;padding:12px 16px;background:#fdf8e8;border:1px solid #e8d87a;border-left:4px solid #d4a900;border-radius:10px;font-size:12.5px;color:#5a4a00;line-height:1.6;">
+      <strong>Sources:</strong> New Engen June 2026 TikTok + Instagram trackers, Buffer June trending songs analysis, Crescitaly June sounds guide, TikTok FIFA World Cup Newsroom. Current as of June 9, 2026. ⭐ = Recommended for immediate testing.
+    </div>
+    <div class="concept-list" id="trend-list"></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  Prepared by Whittaker Media Group &nbsp;·&nbsp; Terrible's Digital Marketing &nbsp;·&nbsp; June 2026
+</footer>
+
+<script>
+const buckets = [
+  { name: "Humor / Trends", pct: 18, color: "#C0392B", note: "Highest organic reach driver. One great trend post outperforms 10 deal posts. TikTok primary." },
+  { name: "Giveaways", pct: 15, color: "#7F8C8D", note: "Already a proven growth driver for the brand. Gameday Giveaways anchor the big prizes; T+ sweepstakes and smaller weekly giveaways keep the cadence active between sports seasons." },
+  { name: "T+ Loyalty", pct: 13, color: "#8E44AD", note: "Biggest white space. App launched Sept 2025, still underrepresented in content. Drives downloads." },
+  { name: "Promotions", pct: 12, color: "#E67E22", note: "Deal posts earn their slot when tied to Terrible Tuesday or app-exclusive reveals — not standalone graphics." },
+  { name: "Community", pct: 12, color: "#2980B9", note: "Locals, sports tie-ins, Nevada/AZ moments. The Mr. Terrible POV lives here." },
+  { name: "Car Wash", pct: 12, color: "#16A085", note: "89+ locations, Raiders Win/You Shine mechanic, subscription angle. Massively underrepresented." },
+  { name: "Behind-the-Scenes", pct: 10, color: "#27AE60", note: "Night shift life, store resets, restocking ASMR. Authentic content that builds loyalty." },
+  { name: "Employee Spotlights", pct: 8, color: "#D35400", note: "The 304K TikTok was an employee story. This format is proven — replicate it systematically." },
+];
+
+const concepts = [
+  { title: "Things only Terrible's customers understand", obj: "Engagement / community building", platform: "Instagram Reels", bucket: "Community", cta: "Comment your favorite", hook: "POV: it's 2am and you know exactly where you're going", trend: "Summer Anthem 7-Second Lip Sync", trendNote: "Open on a relatable 2am moment timed to the summer anthem hook — no talking, just the vibe. Text overlay does the work." },
+  { title: "Watch the wheel spin — member wins on Terrible Tuesday", obj: "App downloads / T+ awareness", platform: "TikTok", bucket: "T+ Loyalty", cta: "Download the app to play", hook: "Screen-record of a real Shop Spin Win win, no narration", trend: "Reaction / 'Did I Just Win?' Format", trendNote: "Genuine unscripted reaction to a wheel spin win. No polish needed — the authenticity is the content." },
+  { title: "Car wash tunnel reveal — before and after", obj: "Car wash subscriptions + organic reach", platform: "TikTok", bucket: "Car Wash", cta: "Unlimited Club — link in bio", hook: "Filthy car goes in. Clean car comes out. No words needed.", trend: "Car Wash Tunnel ASMR POV ⭐ Top 5", trendNote: "Top 5 recommended trend. POV shot from inside the tunnel, sound-forward, no voiceover. Evergreen content that drives subscription curiosity." },
+  { title: "Late-night Las Vegas fueling decisions, ranked", obj: "Reach / brand awareness", platform: "TikTok", bucket: "Humor / Trends", cta: "Drop your go-to in the comments", hook: "S-tier: Terrible's. F-tier: everywhere else.", trend: "Tier List Format", trendNote: "Tier list cards still driving high comment volume on TikTok. Mr. Terrible voice with dry delivery — rank local fueling spots, Terrible's wins by default." },
+  { title: "I didn't know the app did that", obj: "T+ feature education", platform: "Instagram Reels", bucket: "T+ Loyalty", cta: "Download and check your offers", hook: "Quick 15-second screen record walking through an offer most people miss", trend: "'Seeing If the Algorithm Prefers' A/B Format ⭐ Top 5", trendNote: "Post two versions — polished app walkthrough vs. casual phone screen record. Ask which is more helpful. Turns a tutorial into a two-post engagement loop." },
+  { title: "Meet [Employee]: [X] years at Terrible's", obj: "Brand trust / humanization", platform: "TikTok", bucket: "Employee Spotlights", cta: "Tell us your favorite Terrible's memory", hook: "Direct to camera. No script. Same format as the 304K video.", trend: "Face-of-Brand Direct Address", trendNote: "The 304K video proved this format works for Terrible's specifically. Platform rewards accounts that put a consistent human face on content." },
+  { title: "Bad news for my car: it needed a wash. Good news: the subscription paid for itself.", obj: "Car wash subscription conversions", platform: "TikTok", bucket: "Car Wash", cta: "Unlimited Club — how many washes do you get a month?", hook: "Bad news for my car...", trend: "'Bad News For My Wallet' Format ⭐ Top 5", trendNote: "Top 5 trend from the report. Flip the format — bad news for the car, good news for the wallet. Subscription math lands harder when it's framed as a win you almost missed." },
+  { title: "Arizona, you're one of us now", obj: "Arizona expansion awareness", platform: "Instagram", bucket: "Community", cta: "Tag someone in AZ who needs to know", hook: "Welcome to the family. You didn't have a choice.", trend: "Brand Worldview / Identity Statement", trendNote: "Dry humor with a light hazing energy — classic Mr. Terrible voice. Funny enough to share, clear enough to not need explanation. Instagram is rewarding caption-driven identity content; this one writes itself." },
+  { title: "Night shift at Terrible's: what 3am looks like", obj: "Organic reach / brand personality", platform: "TikTok", bucket: "Behind-the-Scenes", cta: "Follow for the shift", hook: "Nobody talks about who keeps Las Vegas running at 3am.", trend: "ASMR Product Restocking", trendNote: "Sound-forward, no narration, overnight atmosphere — same format logic as the restocking trend applied to the full shift. Coolers getting stocked, shelves getting faced, store coming back to life. Algorithm holds attention because it feels incomplete until the shift is done." },
+  { title: "How do people find out about Terrible Tuesday before everyone else? The app.", obj: "T+ app downloads / push notification awareness", platform: "Instagram Stories + Feed", bucket: "T+ Loyalty", cta: "Download the app — link in bio", hook: "Everyone else finds out Tuesday morning. App members get the notification first.", trend: "FOMO / Early Access Reveal", trendNote: "Stories countdown sticker + poll combo. The FOMO framing is about the notification — members get alerted first, not an early deal. Drives downloads without misrepresenting the program." },
+  { title: "Frazil Friday: the flavor you should be getting", obj: "Product trial / seasonal traffic", platform: "TikTok", bucket: "Promotions", cta: "What flavor did you grab?", hook: "Slow pour. No talking. You already know.", trend: "Car Wash Tunnel ASMR POV ⭐ Top 5", trendNote: "Apply the ASMR POV format to the Frazil self-serve moment — slow pour shot, sound-forward, no voiceover. Same sensory content logic, different product." },
+  { title: "Seeing if the algorithm prefers: car wash static vs. tunnel video", obj: "Reach test + organic content strategy signal", platform: "TikTok", bucket: "Behind-the-Scenes", cta: "Which one got you? Comment below.", hook: "Running an experiment. You're the data.", trend: "'Seeing If the Algorithm Prefers' A/B Format ⭐ Top 5", trendNote: "Direct execution of the Top 5 trend. Pit a static car wash graphic against a tunnel POV video. Turns a content test into a two-post engagement loop and gives you real performance data." },
+  { title: "Gameday Giveaway: here's what you could win this week", obj: "Giveaway entries / reach", platform: "Instagram", bucket: "Giveaways", cta: "Follow + tag a friend to enter", hook: "Real photo of the prize. No flyer. No clip art.", trend: "Product Hero Shot", trendNote: "Instagram is rewarding clean real-photo content over designed graphics. Real prize photo with minimal text outperforms flyer-style giveaway posts in organic reach." },
+  { title: "How to get 20% off your car wash after every Raiders win", obj: "Offer awareness + app downloads", platform: "Facebook", bucket: "Car Wash", cta: "Save this — you'll need it Sunday", hook: "Step-by-step. Plain language. 35+ audience knows how to save a post.", trend: "Save-Worthy How-To Format", trendNote: "Facebook's algorithm rewards save-and-share on instructional content. Plain-language Raiders Win/You Shine mechanics designed to be saved before game day." },
+  { title: "You've been coming here since before the Las Vegas Sign was iconic", obj: "Loyalty brand nostalgia", platform: "Instagram", bucket: "Community", cta: "Drop the year you became a regular", hook: "1959. Before the Strip was the Strip.", trend: "Nostalgia Carousel", trendNote: "Multi-slide carousels with historical context are outperforming single-image posts on Instagram right now. Nevada/AZ milestones alongside Terrible's history — swipe format drives saves." },
+  { title: "Restocking night ASMR — no talking, just product", obj: "Organic reach / curiosity content", platform: "TikTok", bucket: "Behind-the-Scenes", cta: "Follow to see what comes in next", hook: "No talking. Just the sounds of a store coming back to life.", trend: "Car Wash Tunnel ASMR POV ⭐ Top 5", trendNote: "ASMR POV logic applied to overnight restocking. Sound-forward, no narration, satisfying product placement. TikTok is actively boosting this format." },
+  { title: "[Employee] has worked the overnight for [X] years. Ask them anything.", obj: "Engagement + trust", platform: "TikTok", bucket: "Employee Spotlights", cta: "Drop your questions in the comments", hook: "Part 1. Reply to top comments in Part 2.", trend: "Face-of-Brand Direct Address", trendNote: "Q&A extension of the direct-address format. Part 1 sets up the character, Part 2 replies to comments — creates a two-video engagement loop." },
+  { title: "Rock music glitch edit — car wash reveal", obj: "Reach / brand awareness", platform: "TikTok", bucket: "Car Wash", cta: "Unlimited Club — tap the link", hook: "Dirty car. Glitch. Clean car. No words needed.", trend: "Rock Music Glitch Edit ⭐ Top 5", trendNote: "Top 5 recommended trend — highest FYP push potential. Hard cut on the glitch beat timed to the wash reveal. Verified royalty-free audio available for business accounts." },
+  { title: "Point balance check — how close are you?", obj: "T+ engagement + retention", platform: "Instagram Stories", bucket: "T+ Loyalty", cta: "Open the app and check your points", hook: "Poll sticker: 'How close are you to your next reward?' — no promo needed", trend: "Interactive Poll / Engagement Sticker", trendNote: "Stories polls tied to app actions drive opens without a discount. The curiosity of checking your balance is the CTA. No margin cannibalized." },
+  { title: "The only convenience store in Nevada as old as the Las Vegas Sign", obj: "Brand legacy / differentiation", platform: "Instagram + Facebook", bucket: "Community", cta: "Drop your first Terrible's memory", hook: "1959. Deliberately different since before Vegas was what it is now.", trend: "Nostalgia Carousel", trendNote: "Slide 1 is the founding year stat, slides 2-4 pair Nevada/AZ historical moments with Terrible's milestones. Comment prompt at the end drives saves and shares." },
+    { title: "There's a sweepstakes inside the Terrible's app right now. Did you know?", obj: "T+ app downloads / sweepstakes awareness + follows", platform: "TikTok + Instagram Reels", bucket: "Giveaways", cta: "Download the app + follow + drop a comment to enter", hook: "Step 1: get the app. Step 2: you're basically already here.", trend: "'Bad News For My Wallet' Format ⭐ Top 5", trendNote: "Flip the format: bad news for everyone without the app — they're not entered. Good news: three easy steps and you're in. The follow + comment layer drives algorithm signals while the app requirement drives downloads. One post, three jobs." },
+  { title: "T+ members can enter the sweepstakes right now — here's how", obj: "T+ app downloads + sweepstakes entries + follow growth", platform: "Instagram Reels + TikTok", bucket: "Giveaways", cta: "Download the app + follow this page + comment to enter", hook: "You need the app. You need to enter. Takes 30 seconds.", trend: "Face-of-Brand Direct Address", trendNote: "Direct-to-camera delivery. Walk through the entry steps clearly — get the app, open the sweepstakes, enter. Follow + comment layer on top drives social signals. Accuracy matters here; members need to know they still have to actively enter in the app." },
+  { title: "What's inside the Terrible's app besides the sweepstakes", obj: "T+ app downloads / feature education + retention", platform: "Instagram Reels", bucket: "T+ Loyalty", cta: "Download + follow + comment your most-used app feature", hook: "The sweepstakes got you here. Here's everything else.", trend: "Save-Worthy How-To Format", trendNote: "Purely informational — walk through Shop/Spin/Win, Terrible Tuesday offers, and the sweepstakes entry in one clean rundown. Designed to be saved by new members who just downloaded the app and want to know what to do next." },
+  { title: "Sweepstakes winner announced — and all it took was a qualifying purchase", obj: "Social proof / app downloads + purchase intent", platform: "Instagram + Facebook", bucket: "Giveaways", cta: "Download the app + make a qualifying purchase to enter the next one", hook: "They had the app. They made a purchase. They won.", trend: "Save-Worthy How-To Format", trendNote: "Winner announcement that accurately walks through the full entry mechanic — app download, qualifying purchase, sweepstakes entry. Social proof makes the purchase requirement feel worth it rather than like a barrier. Closes one sweepstakes and drives action for the next." },
+    { title: "Winner reveal: watch [name] react to winning the Gameday Giveaway", obj: "Social proof / future entries", platform: "TikTok + Instagram Reels", bucket: "Giveaways", cta: "Make a qualifying purchase + enter in the app — link in bio", hook: "Real winner. Real reaction. No script.", trend: "Save-Worthy How-To Format", trendNote: "Winner reveal doubles as a how-to: here's who won, here's how they entered, here's how you do the same. Saves and shares spike when the payoff is both emotional and actionable." },
+  { title: "This is what you're playing for — Gameday Giveaway prize walkthrough", obj: "Giveaway entries / prize awareness", platform: "Instagram Reels + TikTok", bucket: "Giveaways", cta: "Make a qualifying purchase + enter in the app — link in bio", hook: "No flyer. Just the actual prize. Let's walk through it.", trend: "Product Hero Shot", trendNote: "Real photo or footage of the prize package — Raiders tickets, VGK seats, Circa credit. Framed as a Terrible's c-store giveaway: you stopped in, you entered, you won. The store is the hero, not the venue." },
+  { title: "How to enter every Terrible's giveaway without missing one", obj: "App downloads + follow growth", platform: "Instagram Reels", bucket: "Giveaways", cta: "Follow + download the app — never miss a drop", hook: "There's a giveaway running right now. Here's how to always know.", trend: "Save-Worthy How-To Format", trendNote: "Instructional format designed to be saved. Positions the app and the follow as utilities, not asks. People who save this become long-term followers because they don't want to miss future giveaways." },
+  { title: "Tag a friend who needs to win the Gameday Giveaway more than you", obj: "Reach / new followers via tagging", platform: "Instagram + Facebook", bucket: "Giveaways", cta: "Tag them below + make a qualifying purchase to enter", hook: "You know exactly who needs this.", trend: "FOMO / Early Access Reveal", trendNote: "Tag-a-friend format is the simplest reach multiplier in social. Every tag is a notification to a non-follower. Gameday framing keeps it squarely in the c-store + sports partnership lane — no F&B crossover." },
+  { title: "We're giving one away every week this month — here's the schedule", obj: "Sustained follow growth / retention", platform: "Instagram", bucket: "Giveaways", cta: "Follow so you don't miss a single one", hook: "Four weeks. Four giveaways. One reason to follow right now.", trend: "Nostalgia Carousel", trendNote: "Multi-slide carousel format — one slide per weekly giveaway. Swipe behavior signals to the algorithm. The schedule framing creates a reason to follow today rather than enter just once and leave." },
+  { title: "24 hours left — last chance to enter the Gameday Giveaway", obj: "Entry urgency / last-push reach", platform: "Instagram Stories + Feed", bucket: "Giveaways", cta: "Make a qualifying purchase + enter in the app before midnight", hook: "Clock is running. You still have time.", trend: "FOMO / Early Access Reveal", trendNote: "Countdown urgency posts consistently outperform the original giveaway announcement in last-day entries. Stories countdown sticker does the work. Feed post extends the reach beyond current followers." },
+  { title: "What's the first thing you'd do with [Raiders/VGK] tickets from Terrible's?", obj: "Engagement + giveaway entries", platform: "Instagram + Facebook", bucket: "Giveaways", cta: "Drop your answer below + make a qualifying purchase to enter", hook: "Serious question. Serious prize.", trend: "Interactive Poll / Engagement Sticker", trendNote: "Comment-to-enter format tied to a sports-specific imaginative prompt. Gameday prize framing keeps it in the c-store + sports lane. Comment volume drives algorithm reach — works especially well on Facebook with the 35+ audience." },
+];
+
+function renderBuckets() {
+  const grid = document.getElementById('bucket-grid');
+  buckets.forEach(b => {
+    const card = document.createElement('div');
+    card.className = 'bucket-card';
+    card.innerHTML = `
+      <div class="bucket-name">${b.name}</div>
+      <div class="bucket-pct" style="color:${b.color}">${b.pct}%</div>
+      <div class="bucket-bar-wrap"><div class="bucket-bar" style="width:${Math.min(b.pct * 4, 100)}%;background:${b.color}"></div></div>
+      <div class="bucket-note">${b.note}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+const platforms = ['All', 'TikTok', 'Instagram Reels', 'Instagram', 'Instagram Stories', 'Facebook'];
+let activeFilter = 'All';
+
+function renderFilters() {
+  const row = document.getElementById('filter-row');
+  platforms.forEach(p => {
+    const chip = document.createElement('button');
+    chip.className = 'chip' + (p === 'All' ? ' on' : '');
+    chip.textContent = p;
+    chip.onclick = () => {
+      activeFilter = p;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+      chip.classList.add('on');
+      renderConcepts();
+    };
+    row.appendChild(chip);
+  });
+}
+
+function renderConcepts() {
+  const list = document.getElementById('concept-list');
+  list.innerHTML = '';
+  const filtered = activeFilter === 'All' ? concepts : concepts.filter(c => c.platform.includes(activeFilter));
+  filtered.forEach((c, i) => {
+    const globalIdx = concepts.indexOf(c);
+    const card = document.createElement('div');
+    card.className = 'concept-card';
+    card.innerHTML = `
+      <div class="concept-head" onclick="toggleCard(this.parentElement)">
+        <span class="concept-num">${String(globalIdx + 1).padStart(2, '0')}</span>
+        <div style="flex:1;min-width:0;">
+          <span class="concept-title">"${c.title}"</span>
+          <div style="margin-top:4px;font-size:11px;color:#8E44AD;font-weight:500;">&#9654; ${c.trend}</div>
+        </div>
+        <div class="pill-row">
+          <span class="pill pill-plat">${c.platform}</span>
+          <span class="pill pill-bucket">${c.bucket}</span>
+        </div>
+        <span class="chevron">&#8964;</span>
+      </div>
+      <div class="concept-detail">
+        <table class="detail-table">
+          <tr><td>Objective</td><td>${c.obj}</td></tr>
+          <tr><td>Platform</td><td>${c.platform}</td></tr>
+          <tr><td>Bucket</td><td>${c.bucket}</td></tr>
+          <tr><td>CTA</td><td><span class="cta-badge">${c.cta}</span></td></tr>
+          <tr><td>Hook</td><td class="hook-text">${c.hook}</td></tr>
+          <tr><td>Trend</td><td style="font-weight:500;color:#8E44AD;">${c.trend}</td></tr>
+          <tr><td>Why it fits</td><td class="hook-text">${c.trendNote}</td></tr>
+        </table>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.tab-btn[onclick="switchTab('${id}')"]`).classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+}
+
+
+const trends = [
+  {
+    num: 1, top5: true,
+    title: "Rock Music Glitch Edit",
+    platform: "TikTok + Instagram Reels",
+    sound: "Hard rock/metal drop with glitch transition sound (royalty-free available for business accounts)",
+    category: "Car Wash",
+    whyItWorks: "Ranked #1 on both TikTok and Instagram simultaneously — cross-platform momentum is rare. The hard cut on the beat drop is a proven watch-time driver. Algorithm rewards content that keeps viewers through the transition.",
+    terribles: "Dirty car enters the tunnel. Glitch on the beat drop. Clean car exits. No voiceover, no text needed. Shoot at any location with a tunnel wash. The format does the work.",
+    licensing: "Royalty-free versions widely available. Verify via TikTok Commercial Music Library before posting."
+  },
+  {
+    num: 2, top5: true,
+    title: "Summer Anthem 7-Second Lip Sync",
+    platform: "TikTok",
+    sound: "Current summer anthem (Buffer June 2026 trending songs — verify current #1 in TikTok Commercial Music Library)",
+    category: "Employee Content",
+    whyItWorks: "New Engen data shows small accounts reporting millions of views on first attempt. Algorithm is heavily boosting this sound in its early viral window. Lowest barrier to entry of any top-5 trend — one employee, one phone, 7 seconds.",
+    terribles: "Employee at the counter, cooler, or car wash booth. 7-second lip sync or vibe moment. No script. Post within 48 hours while the sound is in its early window. First post from a new account format gets the biggest push.",
+    licensing: "Use TikTok's in-app sound to ensure commercial licensing. Do not download and re-upload."
+  },
+  {
+    num: 3, top5: true,
+    title: "'Seeing If the Algorithm Prefers' A/B Format",
+    platform: "Instagram Reels + TikTok",
+    sound: "Trending audio or original sound",
+    category: "Behind-the-Scenes / Strategy",
+    whyItWorks: "Still climbing after two weeks per New Engen. Converts production decisions into audience engagement. Instagram specifically needs interaction drivers — this format generates comments by design because people want to vote.",
+    terribles: "Post two versions of the same content back-to-back: polished car wash graphic vs. raw tunnel POV video. Caption: 'Seeing if the algorithm prefers this one or the other one. Comment which got you.' Generates two posts of content from one shoot.",
+    licensing: "No music licensing concern if using original audio or in-app trending sound."
+  },
+  {
+    num: 4, top5: true,
+    title: "Car Wash Tunnel ASMR POV",
+    platform: "TikTok + Instagram Reels",
+    sound: "Original sound — the car wash itself (no music needed)",
+    category: "Car Wash",
+    whyItWorks: "Evergreen format with sustained algorithm favor. Car wash ASMR is one of the most-saved content categories on TikTok. Sound-forward, no narration means no licensing risk and no production cost beyond the shoot. Drives subscription curiosity organically.",
+    terribles: "Mount phone inside or on dash. POV shot through the full tunnel wash. No talking, no text overlay needed. End frame: Unlimited Club subscription CTA. Evergreen — works any time of year.",
+    licensing: "Original sound only. No licensing concerns."
+  },
+  {
+    num: 5, top5: true,
+    title: "'Bad News For My Wallet' Format",
+    platform: "TikTok",
+    sound: "Original audio or trending sound — format is copy-driven, not sound-dependent",
+    category: "Promotions / Deals",
+    whyItWorks: "High engagement rate because the setup creates anticipation. The 'bad news' hook stops the scroll, the 'good news' payoff rewards the watch. Format is still in rising phase per New Engen — not peaked.",
+    terribles: "Bad news for my wallet: I keep stopping at Terrible's. Good news: Terrible Tuesday exists. Or: Bad news for my car — it needed a wash. Good news: the Unlimited Club paid for itself by wash #3. Flexible format that works across deals, car wash, and loyalty content.",
+    licensing: "Original audio recommended to maximize reuse across multiple posts."
+  },
+  {
+    num: 6, top5: false,
+    title: "FIFA World Cup Fan Content",
+    platform: "TikTok",
+    sound: "TikTok FIFA official sounds (TikTok is FIFA's official Preferred Platform for the first time ever)",
+    category: "Community / Sports",
+    whyItWorks: "TikTok is amplifying World Cup content through a mechanism never deployed before. Tournament projected to reach 6 billion people. Las Vegas is a host-adjacent city with massive fan traffic to/from LA, Phoenix, and Kansas City — all Terrible's markets.",
+    terribles: "Watch party framing at store locations. 'We've got the drinks covered. You bring the drama.' No FIFA marks needed — fan energy, not sponsorship. Tag nearest host city. Window runs June 11 through July 19.",
+    licensing: "Use only TikTok official FIFA sounds. Do not use broadcast footage or FIFA marks."
+  },
+  {
+    num: 7, top5: false,
+    title: "Toy Story 5 / 'Then vs. Now' Nostalgia Carousel",
+    platform: "TikTok + Instagram Reels",
+    sound: "Taylor Swift 'I Knew It, I Knew You' (verify in-app — Swift catalog licensing varies) or original nostalgic audio",
+    category: "Community / Brand Heritage",
+    whyItWorks: "Toy Story 5 opens June 19. Taylor Swift tie-in broke Spotify streaming records June 5. Crossover of Disney/Pixar nostalgia + Swifties is one of the largest cultural overlap moments in years. 'Then vs. now' format proven for any brand with history.",
+    terribles: "Old store photo vs. current location. 1959 founding year as the anchor. 'We were here before a lot of things.' Terrible's has enough Nevada history to own this format authentically.",
+    licensing: "Taylor Swift catalog: complex TikTok history — verify commercial availability. Consider original nostalgic audio as safe backup."
+  },
+  {
+    num: 8, top5: false,
+    title: "Instagram AI Flash Filter",
+    platform: "Instagram Reels",
+    sound: "Trending Reels audio (format is visual-first)",
+    category: "Humor / Trends",
+    whyItWorks: "Instagram's new AI Flash Filter is driving cross-platform content this week per New Engen. New native Instagram features get preferential algorithm treatment in their launch window. Low production lift — apply filter to any existing video.",
+    terribles: "Apply AI Flash Filter to a car wash tunnel clip or a store interior walk-through. The visual novelty is the hook. No script needed.",
+    licensing: "Native Instagram feature — no licensing concerns."
+  },
+  {
+    num: 9, top5: false,
+    title: "Tier List Format",
+    platform: "TikTok",
+    sound: "Trending TikTok audio or original sound",
+    category: "Humor / Community",
+    whyItWorks: "Tier list content consistently drives comment volume because audiences disagree with rankings by design. Comment engagement signals push content to more FYPs. Low production — graphic template, dry delivery.",
+    terribles: "Rank Las Vegas late-night fueling options, car wash options, or Tuesday deal items. Mr. Terrible voice. S-tier: Terrible's. The format is the joke.",
+    licensing: "Original audio or in-app sound. No concerns."
+  },
+  {
+    num: 10, top5: false,
+    title: "Face-of-Brand Direct Address",
+    platform: "TikTok",
+    sound: "Original sound — no music needed",
+    category: "Employee Content",
+    whyItWorks: "Kwik Trip's dominance of c-store social is built entirely on this format. TikTok rewards accounts with a consistent returning human face. The 304K Terrible's video was this format — proof it works for this brand specifically.",
+    terribles: "One employee, direct to camera, no script. Same format every time — consistency builds character recognition. Could be the same overnight employee weekly or rotating cast. Part 1 always ends with a comment prompt to fuel Part 2.",
+    licensing: "Original sound. No concerns."
+  },
+  {
+    num: 11, top5: false,
+    title: "ASMR Product Restocking",
+    platform: "TikTok",
+    sound: "Original sound — product sounds only",
+    category: "Behind-the-Scenes",
+    whyItWorks: "Satisfying restocking content is a proven evergreen category. Sound-forward with no narration. Algorithm favors watch-through content — restocking videos hold attention because they feel incomplete until the shelf is full.",
+    terribles: "Overnight restock: cooler doors, shelf facing, product placement. No talking. Satisfying sound design. End frame: 'Ready for tomorrow.' Evergreen — works any week.",
+    licensing: "Original sound. No concerns."
+  },
+  {
+    num: 12, top5: false,
+    title: "Save-Worthy How-To Instructional",
+    platform: "Facebook + Instagram",
+    sound: "Optional — format works muted",
+    category: "Car Wash / Loyalty",
+    whyItWorks: "Save behavior is the highest-value engagement signal on both Facebook and Instagram. Instructional content with clear utility consistently gets saved and reshared. Facebook's 35+ core audience responds better to how-to formats than trend audio.",
+    terribles: "Raiders Win/You Shine: step-by-step how to claim the 20% car wash discount. Terrible's+ onboarding: how to set up the app and spin the wheel. Designed to be saved before game day or deal day.",
+    licensing: "No concerns."
+  },
+  {
+    num: 13, top5: false,
+    title: "Nostalgia Carousel (Multi-Slide)",
+    platform: "Instagram",
+    sound: "N/A — static carousel",
+    category: "Community / Brand Heritage",
+    whyItWorks: "Multi-slide carousels outperforming single-image posts on Instagram right now. Each swipe is an engagement signal. Historical + current pairing creates save behavior — people save content they want to show someone later.",
+    terribles: "Slide 1: founding year stat. Slides 2-4: Nevada/AZ historical milestones alongside Terrible's store milestones. Final slide: comment prompt. 'The only convenience store in Nevada as old as the Las Vegas Sign.'",
+    licensing: "No concerns. Use owned archival photos where available."
+  },
+  {
+    num: 14, top5: false,
+    title: "Interactive Poll / Engagement Sticker",
+    platform: "Instagram Stories",
+    sound: "N/A — Stories format",
+    category: "T+ Loyalty",
+    whyItWorks: "Stories poll and question stickers are the lowest-friction engagement mechanic on Instagram. Responses feed back into algorithm signals. Drives app opens without requiring a promotional offer.",
+    terribles: "Poll: 'How close are you to your next Terrible's+ reward?' Drives app opens to check balance. Follow-up story: 'Winners this week already claimed theirs.' Zero margin cost — no discount involved.",
+    licensing: "No concerns."
+  },
+  {
+    num: 15, top5: false,
+    title: "Product Hero Shot (Real Photo, No Design)",
+    platform: "Instagram",
+    sound: "N/A — static image",
+    category: "Promotions / Giveaways",
+    whyItWorks: "Instagram algorithm shift in 2026 is actively penalizing graphic-heavy promotional posts and rewarding authentic photography. Real product photos with minimal text overlay are outperforming designed promo graphics across brand accounts.",
+    terribles: "Gameday Giveaway prize package: real photo, real light, no flyer template. Terrible Tuesday deal product: hero shot, no deal callout graphic. The product should do the selling.",
+    licensing: "No concerns. Use owned photography."
+  }
+];
+
+function renderTrends() {
+  const list = document.getElementById('trend-list');
+  if (!list) return;
+  list.innerHTML = '';
+  trends.forEach((t, i) => {
+    const card = document.createElement('div');
+    card.className = 'concept-card';
+    const top5Badge = t.top5 ? `<span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:#fdf3cd;color:#856404;border:1px solid #ffc107;white-space:nowrap;">⭐ Top 5</span>` : '';
+    const catBadge = `<span class="pill pill-plat">${t.platform.split(' + ')[0]}</span>`;
+    card.innerHTML = `
+      <div class="concept-head" onclick="toggleCard(this.parentElement)">
+        <span class="concept-num">${String(t.num).padStart(2,'0')}</span>
+        <div style="flex:1;min-width:0;">
+          <span class="concept-title">${t.title}</span>
+          <div style="margin-top:4px;font-size:11px;color:var(--mid);">${t.category}</div>
+        </div>
+        <div class="pill-row">${top5Badge}${catBadge}</div>
+        <span class="chevron">&#8964;</span>
+      </div>
+      <div class="concept-detail">
+        <table class="detail-table">
+          <tr><td>Platform</td><td>${t.platform}</td></tr>
+          <tr><td>Sound / Format</td><td class="hook-text">${t.sound}</td></tr>
+          <tr><td>Why it works</td><td>${t.whyItWorks}</td></tr>
+          <tr><td>Terrible's version</td><td style="font-weight:500;color:var(--red);">${t.terribles}</td></tr>
+          <tr><td>Licensing</td><td style="color:#27AE60;font-size:12px;">${t.licensing}</td></tr>
+        </table>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+renderBuckets();
+renderFilters();
+renderConcepts();
+renderTrends();
+</script>
+</body>
+</html>
